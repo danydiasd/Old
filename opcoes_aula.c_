@@ -1,0 +1,54 @@
+#include<stdio.h>
+
+void cadastraNota(){
+  FILE *arq;float nota;
+  char nome_aluno[51];
+  if(arq=fopen("notas.txt","a")){
+    printf("Nome do aluno: ");getchar();
+ gets(nome_aluno);
+
+    do{printf("nota: ");scanf ("%f",& nota);
+    }while(nota<0 ||nota>10);
+    fprintf(arq,"%s\n%f\n",nome_aluno,nota);
+    fclose(arq);
+  }
+  else{printf("\n ERRO NA ABERTURA DO ARQUIVO \n");}
+}
+
+
+void calculaMedia(){
+  float nota1,nota2 ,media=0;int quant=0;FILE *arq;
+  char nome[51];
+  if(arq=fopen("notas.txt", "r")){
+    fscanf(arq,"%s%f", nome, &nota1,nota2);
+    while(!feof(arq)){
+      printf("%s\t%4.1f\n",nome, nota1,nota2);
+      media=(media=(2*nota1+3*nota2)/5);quant=quant+1;
+      fscanf(arq,"%s%f", nome, &nota1,&nota2);
+    }
+    printf("\nMEDIA:%4.1f\n",media/quant);
+    fclose(arq);
+    }
+  else{printf("\n ERRO NA ABERTURA DO ARQUIVO\n");}
+}
+
+
+int main(){
+  char opcao;
+  do{
+    
+    printf("\nC-cadastra nota\n");
+    printf("M-calcula media\n");
+    printf("S-sair\n");
+    printf("\nOpcao: ");
+    scanf(" %c",& opcao);
+    if(opcao=='C' || opcao=='c')
+
+
+      {cadastraNota ();}
+    if(opcao=='M' || opcao=='m')
+      {calculaMedia();}
+  }while(opcao!='S');
+ 
+ return 0;
+}
